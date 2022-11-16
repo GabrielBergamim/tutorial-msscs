@@ -20,7 +20,7 @@ public class CreateUserValidator {
         }
 
         if(isBlank(userDto.getEmail())) {
-            throw new UserValidationException("User email should not be null");
+            throw new UserValidationException("User email should not be empty");
         }
 
         if(!Pattern.compile(emailRegex)
@@ -30,7 +30,7 @@ public class CreateUserValidator {
         }
 
         if(isBlank(userDto.getPassword())) {
-            throw new UserValidationException("User password should not be null");
+            throw new UserValidationException("User password should not be empty");
         }
     }
 }
