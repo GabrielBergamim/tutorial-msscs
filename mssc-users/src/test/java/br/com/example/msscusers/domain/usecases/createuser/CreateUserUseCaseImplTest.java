@@ -13,6 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,6 +70,16 @@ public class CreateUserUseCaseImplTest {
     @Test
     void shouldReturnUserValidationException_whenUserPwdAndPwdConfirmationInputIsDifferent() {
         user.setPassowrdConfirmation("1234");
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
+    }
+
+    @Test
+    void shouldReturnUserValidationException_whenUserInputEmailAlreadyExists() {
+        Mockito.when(repository.findByEmail(any())).thenReturn(Optional.of(User.builder()
+                .id(1)
+                .email(user.getEmail())
+                .build()));
+
         Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
