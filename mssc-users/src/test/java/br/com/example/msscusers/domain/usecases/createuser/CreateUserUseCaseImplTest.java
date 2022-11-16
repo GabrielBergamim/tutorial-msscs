@@ -1,6 +1,7 @@
 package br.com.example.msscusers.domain.usecases.createuser;
 
 import br.com.example.msscusers.domain.dto.UserInputDto;
+import br.com.example.msscusers.domain.exceptions.UserValidationException;
 import br.com.example.msscusers.domain.models.User;
 import br.com.example.msscusers.domain.repositories.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -33,6 +34,11 @@ public class CreateUserUseCaseImplTest {
                 .password("123456789")
                 .passowrdConfirmation("123456789")
                 .build();
+    }
+
+    @Test
+    void shouldReturnUserValidationException_whenUserInputIsNull() {
+        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(null));
     }
 
     @Test
