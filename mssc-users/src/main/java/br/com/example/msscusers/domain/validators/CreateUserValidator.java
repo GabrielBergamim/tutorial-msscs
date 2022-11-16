@@ -36,5 +36,9 @@ public class CreateUserValidator {
         if(isBlank(userDto.getPassowrdConfirmation())) {
             throw new UserValidationException("User password confirmation should not be empty");
         }
+
+        if(!userDto.getPassword().equals(userDto.getPassowrdConfirmation())) {
+            throw new UserValidationException("User password and password confirmation must be equals");
+        }
     }
 }
