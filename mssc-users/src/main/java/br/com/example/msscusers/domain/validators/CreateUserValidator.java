@@ -12,9 +12,7 @@ public class CreateUserValidator {
     private static final String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
             + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
-    private CreateUserValidator() {
-
-    }
+    private CreateUserValidator() { }
 
     public static void validate(UserInputDto userDto) {
         if (userDto == null) {
@@ -29,6 +27,10 @@ public class CreateUserValidator {
                 .matcher(userDto.getEmail())
                 .matches()) {
             throw new UserValidationException("User email is not valid");
+        }
+
+        if(isBlank(userDto.getPassword())) {
+            throw new UserValidationException("User password should not be null");
         }
     }
 }
