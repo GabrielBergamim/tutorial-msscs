@@ -48,6 +48,12 @@ public class CreateUserUseCaseImplTest {
     }
 
     @Test
+    void shouldReturnUserValidationException_whenUserEmailInputIsInvalid() {
+        user.setEmail("teste2email.com");
+        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(user));
+    }
+
+    @Test
     void shouldReturnCreatedUserWithId_whenParameterUserIsInformed() {
         Mockito.when(repository.save(any())).thenReturn(User.builder()
                 .id(1)
