@@ -21,13 +21,13 @@ public class CreateUserUseCaseImplTest {
     @Mock
     private UserRepository repository;
 
-    private CreateUserUseCaseImpl sb;
+    private CreateUserUseCaseImpl sut;
 
     private UserInputDto user;
 
     @BeforeEach
     void setUp() {
-        sb = new CreateUserUseCaseImpl(repository, new ModelMapper());
+        sut = new CreateUserUseCaseImpl(repository, new ModelMapper());
 
         user = UserInputDto.builder()
                 .email("test@email.com")
@@ -38,37 +38,37 @@ public class CreateUserUseCaseImplTest {
 
     @Test
     void shouldReturnUserValidationException_whenUserInputIsNull() {
-        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(null));
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(null));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserEmailInputIsEmpty() {
         user.setEmail("");
-        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(user));
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserEmailInputIsInvalid() {
         user.setEmail("teste2email.com");
-        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(user));
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserPasswordInputIsEmpty() {
         user.setPassword("");
-        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(user));
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserPasswordConfirmationInputIsEmpty() {
         user.setPassowrdConfirmation("");
-        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(user));
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserPwdAndPwdConfirmationInputIsDifferent() {
         user.setPassowrdConfirmation("1234");
-        Assertions.assertThrows(UserValidationException.class, () -> sb.execute(user));
+        Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class CreateUserUseCaseImplTest {
                 .email(user.getEmail())
                 .build());
 
-        var userCreated = sb.execute(user);
+        var userCreated = sut.execute(user);
 
         Assertions.assertTrue(userCreated.getId() > 0);
         Assertions.assertEquals(user.getEmail(), userCreated.getEmail());
