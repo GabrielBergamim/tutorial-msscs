@@ -1,4 +1,4 @@
-package br.com.example.msscusers.infrastructure.config;
+package br.com.example.msscusers.infrastructure.config.beans;
 
 import br.com.example.msscusers.domain.repositories.UserRepository;
 import br.com.example.msscusers.domain.usecases.createuser.CreateUserUseCase;

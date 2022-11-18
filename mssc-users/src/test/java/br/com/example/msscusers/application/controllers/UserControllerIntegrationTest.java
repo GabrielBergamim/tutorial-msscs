@@ -1,18 +1,20 @@
 package br.com.example.msscusers.application.controllers;
 
+import br.com.example.msscusers.application.exceptions.BadRequestException;
 import br.com.example.msscusers.domain.dto.UserInputDto;
 import br.com.example.msscusers.domain.dto.UserOutputDto;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserControllerIntegrationTest {
 
     @Autowired
@@ -30,6 +32,34 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
+    @Order(1)
+    void shouldReturnBadRequestException_whenUserInputEmailIsEmpty() {
+        user.setEmail(null);
+        sendRequestForValidatingErrors();
+    }
+
+    @Test
+    @Order(2)
+    void shouldReturnBadRequestException_whenUserInputPasswordIsEmpty() {
+        user.setPassword(null);
+        sendRequestForValidatingErrors();
+    }
+
+    @Test
+    @Order(3)
+    void shouldReturnBadRequestException_whenUserInputPasswordConfirmationIsEmpty() {
+        user.setPassowrdConfirmation(null);
+        sendRequestForValidatingErrors();
+    }
+
+    @Test
+    @Order(5)
+    void shouldReturnBadRequestException_whenUserInputEmailAlreadyExists() {
+        sendRequestForValidatingErrors();
+    }
+
+    @Test
+    @Order(4)
     void shouldReturnCreatedUserWithId_whenParameterUserIsInformed() {
         var responseEntity = testRestTemplate
                 .postForEntity("/api/user", user, UserOutputDto.class);
@@ -39,5 +69,21 @@ public class UserControllerIntegrationTest {
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         Assertions.assertTrue(userCreated.getId() > 0);
         Assertions.assertEquals(user.getEmail(), userCreated.getEmail());
+    }
+
+    private void sendRequestForValidatingErrors() {
+        var responseEntity = testRestTemplate
+                .postForEntity("/api/user", user, BadRequestException.class);
+        var reponseError = responseEntity.getBody();
+        validateResponseError(responseEntity, reponseError);
+    }
+
+    private void validateResponseError(ResponseEntity<BadRequestException> responseEntity,
+                                       BadRequestException reponseError) {
+        Assertions.assertNotNull(reponseError);
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, reponseError.getStatus());
+        Assertions.assertNotNull(reponseError.getTitle());
+        Assertions.assertNotNull(reponseError.getMessage());
     }
 }
