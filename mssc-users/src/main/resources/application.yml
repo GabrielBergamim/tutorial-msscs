@@ -1,0 +1,4 @@
+spring:
+  artemis:
+    user: teste
+    password: teste123

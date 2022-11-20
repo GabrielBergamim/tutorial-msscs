@@ -3,8 +3,10 @@ package br.com.example.msscusers.domain.usecases.createuser;
 import br.com.example.msscusers.domain.dto.UserInputDto;
 import br.com.example.msscusers.domain.dto.UserOutputDto;
 import br.com.example.msscusers.domain.exceptions.UserValidationException;
+import br.com.example.msscusers.domain.models.Notification;
 import br.com.example.msscusers.domain.models.User;
 import br.com.example.msscusers.domain.repositories.UserRepository;
+import br.com.example.msscusers.domain.usecases.usernotification.UserNotification;
 import br.com.example.msscusers.domain.validators.CreateUserValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,6 +18,8 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final ModelMapper mapper;
 
+    private final UserNotification userNotification;
+
     @Override
     public UserOutputDto execute(UserInputDto userDto) {
         CreateUserValidator.validate(userDto);
@@ -26,7 +30,17 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
         user = userRepository.save(user);
 
+        sendNotification(user);
+
         return mapper.map(user, UserOutputDto.class);
+    }
+
+    private void sendNotification(User user) {
+        userNotification.execute(Notification.builder()
+                .to(user.getEmail())
+                .subject("User created")
+                .message("Your user has been successfully created!")
+                .build());
     }
 
     private void validateIfEmailAlreadyExists(String email) {
