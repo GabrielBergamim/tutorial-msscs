@@ -27,7 +27,7 @@ public class UserControllerIntegrationTest {
         user = UserInputDto.builder()
                 .email("test@email.com")
                 .password("123456789")
-                .passowrdConfirmation("123456789")
+                .passwordConfirmation("123456789")
                 .build();
     }
 
@@ -48,7 +48,7 @@ public class UserControllerIntegrationTest {
     @Test
     @Order(3)
     void shouldReturnBadRequestException_whenUserInputPasswordConfirmationIsEmpty() {
-        user.setPassowrdConfirmation(null);
+        user.setPasswordConfirmation(null);
         sendRequestForValidatingErrors();
     }
 

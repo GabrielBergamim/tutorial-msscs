@@ -13,5 +13,5 @@ public class UserInputDto {
 
     private String email;
     private String password;
-    private String passowrdConfirmation;
+    private String passwordConfirmation;
 }

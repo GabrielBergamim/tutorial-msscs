@@ -15,7 +15,7 @@ public class CreateUserValidatorTest {
         user = UserInputDto.builder()
                 .email("test@email.com")
                 .password("123456789")
-                .passowrdConfirmation("123456789")
+                .passwordConfirmation("123456789")
                 .build();
     }
 
@@ -44,13 +44,13 @@ public class CreateUserValidatorTest {
 
     @Test
     void shouldReturnUserValidationException_whenUserPasswordConfirmationInputIsEmpty() {
-        user.setPassowrdConfirmation("");
+        user.setPasswordConfirmation("");
         Assertions.assertThrows(UserValidationException.class, () -> CreateUserValidator.validate(user));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserPwdAndPwdConfirmationInputIsDifferent() {
-        user.setPassowrdConfirmation("1234");
+        user.setPasswordConfirmation("1234");
         Assertions.assertThrows(UserValidationException.class, () -> CreateUserValidator.validate(user));
     }
 }

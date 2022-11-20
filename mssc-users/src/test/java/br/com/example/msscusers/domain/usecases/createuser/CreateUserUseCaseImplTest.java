@@ -4,6 +4,7 @@ import br.com.example.msscusers.domain.dto.UserInputDto;
 import br.com.example.msscusers.domain.exceptions.UserValidationException;
 import br.com.example.msscusers.domain.models.User;
 import br.com.example.msscusers.domain.repositories.UserRepository;
+import br.com.example.msscusers.domain.usecases.usernotification.UserNotification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,18 +24,21 @@ public class CreateUserUseCaseImplTest {
     @Mock
     private UserRepository repository;
 
+    @Mock
+    private UserNotification userNotification;
+
     private CreateUserUseCaseImpl sut;
 
     private UserInputDto user;
 
     @BeforeEach
     void setUp() {
-        sut = new CreateUserUseCaseImpl(repository, new ModelMapper());
+        sut = new CreateUserUseCaseImpl(repository, new ModelMapper(), userNotification);
 
         user = UserInputDto.builder()
                 .email("test@email.com")
                 .password("123456789")
-                .passowrdConfirmation("123456789")
+                .passwordConfirmation("123456789")
                 .build();
     }
 
@@ -63,13 +67,13 @@ public class CreateUserUseCaseImplTest {
 
     @Test
     void shouldReturnUserValidationException_whenUserPasswordConfirmationInputIsEmpty() {
-        user.setPassowrdConfirmation("");
+        user.setPasswordConfirmation("");
         Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
     @Test
     void shouldReturnUserValidationException_whenUserPwdAndPwdConfirmationInputIsDifferent() {
-        user.setPassowrdConfirmation("1234");
+        user.setPasswordConfirmation("1234");
         Assertions.assertThrows(UserValidationException.class, () -> sut.execute(user));
     }
 
