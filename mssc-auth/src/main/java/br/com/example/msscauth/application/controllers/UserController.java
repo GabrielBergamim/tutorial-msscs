@@ -1,8 +1,8 @@
 package br.com.example.msscauth.application.controllers;
 
 import br.com.example.msscauth.domain.usecases.createuser.CreateUserUseCase;
-import br.com.example.msscauth.domain.dto.UserInputDto;
-import br.com.example.msscauth.domain.dto.UserOutputDto;
+import br.com.example.msscauth.domain.dto.user.UserInputDto;
+import br.com.example.msscauth.domain.dto.user.UserOutputDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

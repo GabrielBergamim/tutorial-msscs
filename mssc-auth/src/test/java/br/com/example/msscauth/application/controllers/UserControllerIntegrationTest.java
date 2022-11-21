@@ -1,8 +1,8 @@
 package br.com.example.msscauth.application.controllers;
 
 import br.com.example.msscauth.application.exceptions.BadRequestException;
-import br.com.example.msscauth.domain.dto.UserInputDto;
-import br.com.example.msscauth.domain.dto.UserOutputDto;
+import br.com.example.msscauth.domain.dto.user.UserInputDto;
+import br.com.example.msscauth.domain.dto.user.UserOutputDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

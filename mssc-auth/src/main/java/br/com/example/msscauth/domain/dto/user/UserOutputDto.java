@@ -1,4 +1,4 @@
-package br.com.example.msscauth.domain.dto;
+package br.com.example.msscauth.domain.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

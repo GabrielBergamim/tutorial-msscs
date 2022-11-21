@@ -1,6 +1,6 @@
 package br.com.example.msscauth.domain.validators;
 
-import br.com.example.msscauth.domain.dto.UserInputDto;
+import br.com.example.msscauth.domain.dto.user.UserInputDto;
 import br.com.example.msscauth.domain.exceptions.UserValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
