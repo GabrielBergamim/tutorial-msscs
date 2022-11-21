@@ -1,10 +1,11 @@
 package br.com.example.msscauth.domain.usecases.createuser;
 
-import br.com.example.msscauth.domain.dto.UserInputDto;
+import br.com.example.msscauth.domain.dto.user.UserInputDto;
 import br.com.example.msscauth.domain.exceptions.UserValidationException;
 import br.com.example.msscauth.domain.models.User;
 import br.com.example.msscauth.domain.repositories.UserRepository;
 import br.com.example.msscauth.domain.usecases.usernotification.UserNotification;
+import br.com.example.msscauth.domain.utils.PasswordEncrypt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import org.modelmapper.ModelMapper;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateUserUseCaseImplTest {
@@ -27,13 +30,16 @@ public class CreateUserUseCaseImplTest {
     @Mock
     private UserNotification userNotification;
 
+    @Mock
+    private PasswordEncrypt passwordEncrypt;
+
     private CreateUserUseCaseImpl sut;
 
     private UserInputDto user;
 
     @BeforeEach
     void setUp() {
-        sut = new CreateUserUseCaseImpl(repository, new ModelMapper(), userNotification);
+        sut = new CreateUserUseCaseImpl(repository, new ModelMapper(), userNotification, passwordEncrypt);
 
         user = UserInputDto.builder()
                 .email("test@email.com")
@@ -94,9 +100,14 @@ public class CreateUserUseCaseImplTest {
                 .email(user.getEmail())
                 .build());
 
+        Mockito.when(passwordEncrypt.encrypt(any())).thenReturn(user.getPassword());
+
         var userCreated = sut.execute(user);
 
         Assertions.assertTrue(userCreated.getId() > 0);
         Assertions.assertEquals(user.getEmail(), userCreated.getEmail());
+        verify(repository, times(1)).save(any());
+        verify(passwordEncrypt, times(1)).encrypt(any());
+        verify(userNotification, times(1)).execute(any());
     }
 }

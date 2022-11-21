@@ -1,12 +1,13 @@
 package br.com.example.msscauth.domain.usecases.createuser;
 
 import br.com.example.msscauth.domain.repositories.UserRepository;
-import br.com.example.msscauth.domain.dto.UserInputDto;
-import br.com.example.msscauth.domain.dto.UserOutputDto;
+import br.com.example.msscauth.domain.dto.user.UserInputDto;
+import br.com.example.msscauth.domain.dto.user.UserOutputDto;
 import br.com.example.msscauth.domain.exceptions.UserValidationException;
 import br.com.example.msscauth.domain.models.Notification;
 import br.com.example.msscauth.domain.models.User;
 import br.com.example.msscauth.domain.usecases.usernotification.UserNotification;
+import br.com.example.msscauth.domain.utils.PasswordEncrypt;
 import br.com.example.msscauth.domain.validators.CreateUserValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,8 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserNotification userNotification;
 
+    private final PasswordEncrypt passwordEncrypt;
+
     @Override
     public UserOutputDto execute(UserInputDto userDto) {
         CreateUserValidator.validate(userDto);
@@ -27,6 +30,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         validateIfEmailAlreadyExists(userDto.getEmail());
 
         User user = mapper.map(userDto, User.class);
+        user.setPassword(passwordEncrypt.encrypt(user.getPassword()));
 
         user = userRepository.save(user);
 
