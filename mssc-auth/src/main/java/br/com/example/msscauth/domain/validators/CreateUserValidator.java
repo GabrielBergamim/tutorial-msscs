@@ -9,9 +9,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class CreateUserValidator {
 
-    private static final String emailRegex = "^(?=.{1,64}@)[A-Za-z\\d_-]+(\\.[A-Za-z\\d_-]+)*@"
-            + "[^-][A-Za-z\\d-]+(\\.[A-Za-z\\d-]+)*(\\.[A-Za-z]{2,})$";
-
     private CreateUserValidator() { }
 
     public static void validate(UserInputDto userDto) {
@@ -23,9 +20,7 @@ public class CreateUserValidator {
             throw new UserValidationException("User email should not be empty");
         }
 
-        if(!Pattern.compile(emailRegex)
-                .matcher(userDto.getEmail())
-                .matches()) {
+        if(!EmailValidator.isValid(userDto.getEmail())) {
             throw new UserValidationException("User email is not valid");
         }
 
