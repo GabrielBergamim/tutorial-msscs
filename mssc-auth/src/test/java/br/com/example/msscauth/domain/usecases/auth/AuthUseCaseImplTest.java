@@ -4,6 +4,7 @@ import br.com.example.msscauth.domain.exceptions.InvalidLoginException;
 import br.com.example.msscauth.domain.exceptions.MissingParameterException;
 import br.com.example.msscauth.domain.models.User;
 import br.com.example.msscauth.domain.repositories.UserRepository;
+import br.com.example.msscauth.domain.utils.JWTUtils;
 import br.com.example.msscauth.domain.utils.PasswordEncrypt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,9 @@ public class AuthUseCaseImplTest {
     @Mock
     private PasswordEncrypt passwordEncrypt;
 
+    @Mock
+    private JWTUtils jwtUtils;
+
     private AuthUseCaseImpl sut;
 
     @BeforeEach
@@ -37,7 +41,9 @@ public class AuthUseCaseImplTest {
 
         Mockito.lenient().when(passwordEncrypt.compare(any(), any())).thenReturn(true);
 
-        sut = new AuthUseCaseImpl(repository, passwordEncrypt);
+        Mockito.lenient().when(jwtUtils.generateToken(any())).thenReturn("valid_token");
+
+        sut = new AuthUseCaseImpl(repository, passwordEncrypt, jwtUtils);
     }
 
     @Test
@@ -74,5 +80,14 @@ public class AuthUseCaseImplTest {
         Mockito.when(passwordEncrypt.compare(any(), any())).thenReturn(false);
         Assertions.assertThrows(InvalidLoginException.class, () ->
                 sut.execute("valid@email.com", "invalid_password"));
+    }
+
+    @Test
+    void shouldReturnAuthToken_whenLoginIsSuccess() {
+        var authToken = sut.execute("valid@email.com", "valid_password");
+
+        Assertions.assertNotNull(authToken);
+        Assertions.assertNotNull(authToken.getAccessToken());
+        Assertions.assertEquals("valid_token", authToken.getAccessToken());
     }
 }

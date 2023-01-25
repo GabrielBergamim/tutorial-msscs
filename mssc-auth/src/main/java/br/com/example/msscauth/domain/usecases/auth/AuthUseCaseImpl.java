@@ -5,6 +5,7 @@ import br.com.example.msscauth.domain.exceptions.MissingParameterException;
 import br.com.example.msscauth.domain.models.AuthorizationToken;
 import br.com.example.msscauth.domain.models.User;
 import br.com.example.msscauth.domain.repositories.UserRepository;
+import br.com.example.msscauth.domain.utils.JWTUtils;
 import br.com.example.msscauth.domain.utils.PasswordEncrypt;
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +17,8 @@ public class AuthUseCaseImpl implements AuthUseCase {
     private final UserRepository userRepository;
 
     private final PasswordEncrypt passwordEncrypt;
+
+    private final JWTUtils jwtUtils;
 
     @Override
     public AuthorizationToken execute(String email, String password) {
@@ -35,6 +38,8 @@ public class AuthUseCaseImpl implements AuthUseCase {
             throw new InvalidLoginException();
         }
 
-        return null;
+        return AuthorizationToken.builder()
+                .accessToken(jwtUtils.generateToken(user.getEmail()))
+                .build();
     }
 }

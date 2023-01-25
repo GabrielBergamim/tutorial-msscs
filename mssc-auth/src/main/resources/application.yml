@@ -2,3 +2,7 @@ spring:
   artemis:
     user: teste
     password: teste123
+
+jwt:
+  secret: secret_token
+  expiration: 60000
