@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -15,7 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_users")
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, UserDetails {
 
     @Serial
     private static final long serialVersionUID = 5313493413859894403L;
@@ -29,4 +32,34 @@ public class UserEntity implements Serializable {
 
     @Column(nullable=false)
     private String password;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
