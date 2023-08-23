@@ -1,12 +1,9 @@
-version: '3.3'
+version: "3.2"
 
 services:
-  amq:
-    image: vromero/activemq-artemis:latest-alpine
-    container_name: activemq
-    environment:
-      ARTEMIS_USERNAME: teste
-      ARTEMIS_PASSWORD: teste123
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
     ports:
-      - 8161:8161
-      - 61616:61616
+      - 5672:5672
+      - 15672:15672
