@@ -20,23 +20,25 @@ public class AuthUseCaseImpl implements AuthUseCase {
 
     private final JWTUtils jwtUtils;
 
+    private final AuthManager manager;
+
     @Override
     public AuthorizationToken execute(String email, String password) {
-        if(isBlank(email)) {
+        if (isBlank(email)) {
             throw new MissingParameterException("email");
         }
 
-        if(isBlank(password)) {
+        if (isBlank(password)) {
             throw new MissingParameterException("password");
         }
 
-        User user = userRepository.findByEmail(email).orElseThrow(() -> {
-            throw new InvalidLoginException();
-        });
+        User user = userRepository.findByEmail(email).orElseThrow(InvalidLoginException::new);
 
-        if(!passwordEncrypt.compare(password, user.getPassword())) {
+        if (!passwordEncrypt.compare(password, user.getPassword())) {
             throw new InvalidLoginException();
         }
+
+        manager.authenticate(user);
 
         return AuthorizationToken.builder()
                 .accessToken(jwtUtils.generateToken(user.getEmail()))
