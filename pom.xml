@@ -12,6 +12,7 @@
     <modules>
         <module>mssc-auth</module>
         <module>mssc-notification</module>
+        <module>mssc-discovery</module>
     </modules>
 
     <parent>
@@ -24,6 +25,17 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <spring.cloud.discovery>4.0.2</spring.cloud.discovery>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2022.0.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
