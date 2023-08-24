@@ -1,0 +1,17 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: mssc-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: mssc-auth
+          uri: lb://mssc-auth
+          predicates:
+            - Path=/api/user/**
+
+eureka:
+  client:
+    register-with-eureka: false
