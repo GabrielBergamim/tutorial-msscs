@@ -13,6 +13,7 @@
         <module>mssc-auth</module>
         <module>mssc-notification</module>
         <module>mssc-discovery</module>
+        <module>mssc-gateway</module>
     </modules>
 
     <parent>
