@@ -38,7 +38,10 @@ public class AuthUseCaseImpl implements AuthUseCase {
             throw new InvalidLoginException();
         }
 
-        manager.authenticate(user);
+        manager.authenticate(User.builder()
+                .email(email)
+                .password(password)
+                .build());
 
         return AuthorizationToken.builder()
                 .accessToken(jwtUtils.generateToken(user.getEmail()))
