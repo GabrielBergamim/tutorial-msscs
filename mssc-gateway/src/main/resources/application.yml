@@ -10,7 +10,9 @@ spring:
         - id: mssc-auth
           uri: lb://mssc-auth
           predicates:
-            - Path=/api/user/**
+            - Path=/auth/api/**
+          filters:
+            - AuthenticationFilter
 
 eureka:
   client:
