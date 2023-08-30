@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /auth
+
 spring:
   application:
     name: mssc-auth
@@ -6,9 +10,20 @@ spring:
     port: 5672
     username: guest
     password: guest
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    jpa:
+      spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      path: /h2-console
+      enable: true
 
 jwt:
-  secret: secret_token
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
   expiration: 60000
 
 queue:
