@@ -1,6 +1,6 @@
 package br.com.example.msscauth.application.controllers;
 
-import br.com.example.msscauth.application.exceptions.BadRequestException;
+import br.com.example.msscauth.application.exceptions.HttpExceptionResponse;
 import br.com.example.msscauth.domain.dto.user.UserInputDto;
 import br.com.example.msscauth.domain.dto.user.UserOutputDto;
 import org.junit.jupiter.api.*;
@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -66,24 +68,23 @@ public class UserControllerIntegrationTest {
         var userCreated = Optional.ofNullable(responseEntity.getBody())
                 .orElse(new UserOutputDto());
 
-        Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        Assertions.assertTrue(userCreated.getId() > 0);
-        Assertions.assertEquals(user.getEmail(), userCreated.getEmail());
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertTrue(userCreated.getId() > 0);
+        assertEquals(user.getEmail(), userCreated.getEmail());
     }
 
     private void sendRequestForValidatingErrors() {
         var responseEntity = testRestTemplate
-                .postForEntity("/api/user", user, BadRequestException.class);
+                .postForEntity("/api/user", user, HttpExceptionResponse.class);
         var reponseError = responseEntity.getBody();
         validateResponseError(responseEntity, reponseError);
     }
 
-    private void validateResponseError(ResponseEntity<BadRequestException> responseEntity,
-                                       BadRequestException reponseError) {
-        Assertions.assertNotNull(reponseError);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, reponseError.getStatus());
-        Assertions.assertNotNull(reponseError.getTitle());
-        Assertions.assertNotNull(reponseError.getMessage());
+    private void validateResponseError(ResponseEntity<HttpExceptionResponse> responseEntity,
+                                       HttpExceptionResponse reponseError) {
+        assertNotNull(reponseError);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, reponseError.getStatus());
+        assertNotNull(reponseError.getMessage());
     }
 }
