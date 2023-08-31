@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  mssc-discovery:
+    image: mssc-discovery:1.0
+    ports:
+      - 8761:8761
+
+  mssc-gateway:
+    image: mssc-gateway:1.0-SNAPSHOT
+    depends_on:
+      - mssc-discovery
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@mssc-discovery:8761/eureka/
+    ports:
+      - 9090:9090
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
