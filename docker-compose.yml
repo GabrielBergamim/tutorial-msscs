@@ -15,6 +15,17 @@ services:
     ports:
       - 9090:9090
 
+  mssc-auth:
+    image: mssc-auth:1.0-SNAPSHOT
+    depends_on:
+      - mssc-discovery
+      - rabbitmq
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@mssc-discovery:8761/eureka/
+      RABBITMQ_HOST: rabbitmq
+    ports:
+      - 8080:8080
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
