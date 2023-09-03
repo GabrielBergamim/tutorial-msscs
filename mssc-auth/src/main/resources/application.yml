@@ -5,6 +5,8 @@ server:
 spring:
   application:
     name: mssc-auth
+  config:
+    import: optional:classpath:.env[.properties]
   rabbitmq:
     host: ${RABBITMQ_HOST}
     port: 5672
