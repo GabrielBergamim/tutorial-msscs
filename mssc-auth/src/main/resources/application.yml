@@ -5,11 +5,14 @@ server:
 spring:
   application:
     name: mssc-auth
+  config:
+    import: optional:classpath:.env[.properties]
   rabbitmq:
-    host: localhost
+    host: ${RABBITMQ_HOST}
     port: 5672
     username: guest
     password: guest
+    virtual-host: /
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -21,6 +24,11 @@ spring:
     console:
       path: /h2-console
       enable: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://netflix:eureka@localhost:8761/eureka
 
 jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970

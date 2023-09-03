@@ -11,7 +11,6 @@
 
 	<artifactId>mssc-auth</artifactId>
 	<name>mssc-auth</name>
-	<version>1.0-${SNAPSHOT_VERSION}</version>
 
 	<properties>
 		<java.version>17</java.version>
@@ -100,28 +99,17 @@
 	</dependencies>
 
 	<build>
+		<finalName>mssc-auth</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<delimiters>
-						<delimiter>@</delimiter>
-					</delimiters>
+					<layers>
+						<enabled>true</enabled>
+						<includeLayerTools>true</includeLayerTools>
+					</layers>
 				</configuration>
 			</plugin>
 		</plugins>
