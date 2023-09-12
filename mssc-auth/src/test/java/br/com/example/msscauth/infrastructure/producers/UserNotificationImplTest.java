@@ -1,7 +1,7 @@
 package br.com.example.msscauth.infrastructure.producers;
 
 import br.com.example.msscauth.domain.models.Notification;
-import br.com.example.msscauth.infrastructure.config.RabbitMQProperties;
+import br.com.example.msscauth.infrastructure.configs.RabbitMQProperties;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

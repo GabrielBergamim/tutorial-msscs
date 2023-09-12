@@ -1,4 +1,4 @@
-package br.com.example.msscauth.domain.usecases.auth;
+package br.com.example.msscauth.application.adapters;
 
 import br.com.example.msscauth.domain.models.User;
 

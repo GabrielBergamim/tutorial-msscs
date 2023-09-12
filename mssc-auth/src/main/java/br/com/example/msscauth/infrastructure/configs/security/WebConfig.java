@@ -1,6 +1,6 @@
-package br.com.example.msscauth.infrastructure.config.security;
+package br.com.example.msscauth.infrastructure.configs.security;
 
-import br.com.example.msscauth.application.filters.JwtAuthenticationFilter;
+import br.com.example.msscauth.infrastructure.filters.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

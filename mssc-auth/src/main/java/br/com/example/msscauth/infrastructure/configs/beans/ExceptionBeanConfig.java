@@ -1,4 +1,4 @@
-package br.com.example.msscauth.infrastructure.config.beans;
+package br.com.example.msscauth.infrastructure.configs.beans;
 
 import br.com.example.msscauth.domain.exceptions.InvalidLoginException;
 import br.com.example.msscauth.domain.exceptions.MissingParameterException;

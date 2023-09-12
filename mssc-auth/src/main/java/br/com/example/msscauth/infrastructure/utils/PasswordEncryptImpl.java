@@ -1,6 +1,6 @@
 package br.com.example.msscauth.infrastructure.utils;
 
-import br.com.example.msscauth.domain.utils.PasswordEncrypt;
+import br.com.example.msscauth.application.adapters.PasswordEncrypt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

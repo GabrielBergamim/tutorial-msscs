@@ -1,6 +1,6 @@
-package br.com.example.msscauth.application.filters;
+package br.com.example.msscauth.infrastructure.filters;
 
-import br.com.example.msscauth.domain.utils.JWTUtils;
+import br.com.example.msscauth.application.adapters.utils.JWTUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

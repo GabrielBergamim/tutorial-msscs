@@ -1,13 +1,13 @@
 package br.com.example.msscauth.domain.usecases.createuser;
 
-import br.com.example.msscauth.domain.repositories.UserRepository;
+import br.com.example.msscauth.application.adapters.repositories.UserRepository;
 import br.com.example.msscauth.domain.dto.user.UserInputDto;
 import br.com.example.msscauth.domain.dto.user.UserOutputDto;
 import br.com.example.msscauth.domain.exceptions.UserValidationException;
 import br.com.example.msscauth.domain.models.Notification;
 import br.com.example.msscauth.domain.models.User;
 import br.com.example.msscauth.domain.usecases.usernotification.UserNotification;
-import br.com.example.msscauth.domain.utils.PasswordEncrypt;
+import br.com.example.msscauth.application.adapters.PasswordEncrypt;
 import br.com.example.msscauth.domain.validators.CreateUserValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

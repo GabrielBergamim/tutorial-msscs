@@ -1,6 +1,6 @@
-package br.com.example.msscauth.infrastructure.config.security;
+package br.com.example.msscauth.infrastructure.configs.security;
 
-import br.com.example.msscauth.domain.utils.JWTUtils;
+import br.com.example.msscauth.application.adapters.utils.JWTUtils;
 import br.com.example.msscauth.infrastructure.repositories.UserJpaRepository;
 import br.com.example.msscauth.infrastructure.utils.JWTUtilsImpl;
 import lombok.RequiredArgsConstructor;

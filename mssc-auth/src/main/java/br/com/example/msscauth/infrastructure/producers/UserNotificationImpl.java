@@ -2,7 +2,7 @@ package br.com.example.msscauth.infrastructure.producers;
 
 import br.com.example.msscauth.domain.models.Notification;
 import br.com.example.msscauth.domain.usecases.usernotification.UserNotification;
-import br.com.example.msscauth.infrastructure.config.RabbitMQProperties;
+import br.com.example.msscauth.infrastructure.configs.RabbitMQProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;

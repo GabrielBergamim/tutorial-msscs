@@ -1,11 +1,12 @@
 package br.com.example.msscauth.domain.usecases.auth;
 
+import br.com.example.msscauth.application.adapters.AuthManager;
 import br.com.example.msscauth.domain.exceptions.InvalidLoginException;
 import br.com.example.msscauth.domain.exceptions.MissingParameterException;
 import br.com.example.msscauth.domain.models.User;
-import br.com.example.msscauth.domain.repositories.UserRepository;
-import br.com.example.msscauth.domain.utils.JWTUtils;
-import br.com.example.msscauth.domain.utils.PasswordEncrypt;
+import br.com.example.msscauth.application.adapters.repositories.UserRepository;
+import br.com.example.msscauth.application.adapters.utils.JWTUtils;
+import br.com.example.msscauth.application.adapters.PasswordEncrypt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

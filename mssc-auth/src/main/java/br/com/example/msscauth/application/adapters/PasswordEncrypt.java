@@ -1,4 +1,4 @@
-package br.com.example.msscauth.domain.utils;
+package br.com.example.msscauth.application.adapters;
 
 public interface PasswordEncrypt {
 

@@ -1,7 +1,7 @@
 package br.com.example.msscauth.infrastructure.services;
 
 import br.com.example.msscauth.domain.models.User;
-import br.com.example.msscauth.domain.usecases.auth.AuthManager;
+import br.com.example.msscauth.application.adapters.AuthManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

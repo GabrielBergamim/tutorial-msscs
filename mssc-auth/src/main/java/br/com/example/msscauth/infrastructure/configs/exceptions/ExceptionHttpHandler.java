@@ -1,4 +1,4 @@
-package br.com.example.msscauth.infrastructure.config.exceptions;
+package br.com.example.msscauth.infrastructure.configs.exceptions;
 
 import br.com.example.msscauth.application.exceptions.HttpExceptionResponse;
 import lombok.RequiredArgsConstructor;

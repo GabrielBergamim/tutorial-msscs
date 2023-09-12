@@ -1,6 +1,6 @@
 package br.com.example.msscauth.infrastructure.utils;
 
-import br.com.example.msscauth.domain.utils.JWTUtils;
+import br.com.example.msscauth.application.adapters.utils.JWTUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

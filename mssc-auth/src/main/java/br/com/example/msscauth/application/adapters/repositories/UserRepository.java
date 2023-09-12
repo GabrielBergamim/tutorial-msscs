@@ -1,4 +1,4 @@
-package br.com.example.msscauth.domain.repositories;
+package br.com.example.msscauth.application.adapters.repositories;
 
 import br.com.example.msscauth.domain.models.User;
 

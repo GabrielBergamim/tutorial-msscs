@@ -1,10 +1,10 @@
-package br.com.example.msscauth.infrastructure.config.beans;
+package br.com.example.msscauth.infrastructure.configs.beans;
 
-import br.com.example.msscauth.domain.repositories.UserRepository;
+import br.com.example.msscauth.application.adapters.repositories.UserRepository;
 import br.com.example.msscauth.domain.usecases.createuser.CreateUserUseCase;
 import br.com.example.msscauth.domain.usecases.createuser.CreateUserUseCaseImpl;
 import br.com.example.msscauth.domain.usecases.usernotification.UserNotification;
-import br.com.example.msscauth.domain.utils.PasswordEncrypt;
+import br.com.example.msscauth.application.adapters.PasswordEncrypt;
 import br.com.example.msscauth.infrastructure.repositories.UserJpaRepository;
 import br.com.example.msscauth.infrastructure.repositories.UserRepositoryImpl;
 import br.com.example.msscauth.infrastructure.utils.PasswordEncryptImpl;

@@ -1,7 +1,7 @@
 package br.com.example.msscauth.infrastructure.repositories;
 
 import br.com.example.msscauth.domain.models.User;
-import br.com.example.msscauth.domain.repositories.UserRepository;
+import br.com.example.msscauth.application.adapters.repositories.UserRepository;
 import br.com.example.msscauth.infrastructure.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

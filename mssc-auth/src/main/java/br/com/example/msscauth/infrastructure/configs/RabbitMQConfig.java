@@ -1,4 +1,4 @@
-package br.com.example.msscauth.infrastructure.config;
+package br.com.example.msscauth.infrastructure.configs;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Binding;
