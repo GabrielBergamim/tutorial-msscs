@@ -34,7 +34,7 @@ public class JWTUtilsImpl implements JWTUtils {
                 .setClaims(extraClaims)
                 .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + (expiration * 60)))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
