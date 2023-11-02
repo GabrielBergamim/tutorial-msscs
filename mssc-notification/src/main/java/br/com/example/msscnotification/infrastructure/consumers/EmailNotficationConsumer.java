@@ -19,6 +19,6 @@ public class EmailNotficationConsumer {
 
         System.out.println(notificationMessage);
 
-        emailService.sendEmail(notificationMessage);
+//        emailService.sendEmail(notificationMessage);
     }
 }
