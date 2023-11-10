@@ -42,13 +42,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (!authResponse.getStatusCode().is2xxSuccessful()) {
                 SecurityContextHolder.getContext().setAuthentication(null);
+                filterChain.doFilter(request, response);
+                return;
             }
 
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 var decode = JWT.decode(token);
                 Authentication auth = new UsernamePasswordAuthenticationToken(decode.getClaim("sub"),
                         token,
-                        Arrays.asList("ROLE_ADMIN").stream()
+                        Arrays.asList("ADMIN").stream()
                                 .map(SimpleGrantedAuthority::new)
                                 .collect(Collectors.toList())
                 );
