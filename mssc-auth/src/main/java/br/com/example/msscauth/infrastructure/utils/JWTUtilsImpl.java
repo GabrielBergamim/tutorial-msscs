@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Component
@@ -25,7 +23,11 @@ public class JWTUtilsImpl implements JWTUtils {
     private Long expiration;
 
     public String generateToken(String email) {
-        return generateToken(new HashMap<>(), email);
+        HashMap<String, Object> roleAdmin = new HashMap<>() {{
+            put("roles", Collections.singletonList("ROLE_ADMIN"));
+        }};
+
+        return generateToken(roleAdmin, email);
     }
 
     @Override
