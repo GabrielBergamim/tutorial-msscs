@@ -33,6 +33,8 @@ public class WebConfig {
                         authorize.requestMatchers(antMatcher("/open"),
                                         antMatcher("/auth/token"))
                                 .permitAll()
+                                .requestMatchers("/close")
+                                .hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
