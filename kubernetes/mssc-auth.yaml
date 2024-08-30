@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssc-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssc-auth
+  template:
+    metadata:
+      labels:
+        app: mssc-auth
+    spec:
+      containers:
+        - name: mssc-auth
+          image: mssc-auth:1.0-SNAPSHOT
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssc-auth
+spec:
+  selector:
+    app: mssc-auth
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

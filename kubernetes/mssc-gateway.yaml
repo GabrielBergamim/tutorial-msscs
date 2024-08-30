@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssc-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssc-gateway
+  template:
+    metadata:
+      labels:
+        app: mssc-gateway
+    spec:
+      containers:
+        - name: mssc-gateway
+          image: mssc-gateway:1.0-SNAPSHOT
+          ports:
+            - containerPort: 9090
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://netflix:eureka@mssc-discovery:8761/eureka/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssc-gateway
+spec:
+  type: ClusterIP  # Change to NodePort to expose externally
+  selector:
+    app: mssc-gateway
+  ports:
+    - port: 9090       # The port the service will be exposed on
+      targetPort: 9090 # The port on which the application is running inside the container

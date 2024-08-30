@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssc-notification
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssc-notification
+  template:
+    metadata:
+      labels:
+        app: mssc-notification
+    spec:
+      containers:
+        - name: mssc-notification
+          image: mssc-notification:1.0-SNAPSHOT
+          ports:
+            - containerPort: 8081
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://netflix:eureka@mssc-discovery:8761/eureka/
+          envFrom:
+            - configMapRef:
+                name: app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssc-notification
+spec:
+  selector:
+    app: mssc-notification
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP

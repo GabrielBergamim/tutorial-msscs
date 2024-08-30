@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssc-discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssc-discovery
+  template:
+    metadata:
+      labels:
+        app: mssc-discovery
+    spec:
+      containers:
+        - name: mssc-discovery
+          image: mssc-discovery:1.0
+          ports:
+            - containerPort: 8761
+          env:
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: mssc-discovery
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssc-discovery
+spec:
+  selector:
+    app: mssc-discovery
+  ports:
+    - protocol: TCP
+      port: 8761
+      targetPort: 8761
+  type: ClusterIP
