@@ -1,9 +1,9 @@
-FROM openjdk:17-jdk-alpine as builder
+FROM cgr.dev/chainguard/jdk:latest as builder
 WORKDIR application
 ADD maven/${project.build.finalName}.jar ${project.build.finalName}.jar
 RUN java -Djarmode=layertools -jar ${project.build.finalName}.jar extract
 
-FROM openjdk:17-jdk-alpine
+FROM cgr.dev/chainguard/jdk:latest
 LABEL PROJECT_NAME=${project.artifactId} \
       PROJECT=${project.id}
 
